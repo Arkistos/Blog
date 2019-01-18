@@ -1,0 +1,98 @@
+body
+{
+	font-family: 'Open Sans', sans-serif;
+	background-color: #e3e0cf;
+}
+
+h1, h2
+{
+	font-family: 'Amatic SC', cursive;
+}
+
+.hidden-menu ul
+{
+	display: flex;
+	flex-direction: column;
+	list-style-type: none;
+}
+
+.hidden-menu a
+{
+	text-decoration: none;
+	color: black;
+}
+
+.hidden-menu
+{
+	background-color: #9fa8a3;
+}
+
+.logoHidden
+{
+	padding-top: 50px;
+}
+
+.bouton
+{	width: 30px;
+	height: 30px;
+	margin-left: -125px;
+}
+
+
+.titlePage
+{
+	padding-top: 25px;
+}
+
+.titlePage h1
+{
+	font-size: 3em;
+}
+
+.logo img
+{
+	width: 150px;
+	height: 150px;
+}
+
+footer
+{
+	margin-top: 50px;
+	background-color: #c5d5cb;
+	height: 300px;
+}
+
+footer img
+{
+	height: 50px;
+	width: 50px;
+}
+
+/* Small devices (landscape phones, 576px and up)*/
+@media (min-width: 576px) {
+	.titlePage h1{
+		font-size: 5em;
+	}
+
+	.hidden-menu ul
+	{
+		flex-direction: row;
+		justify-content: center;
+		list-style-type: none;
+	}
+	.hidden-menu ul li
+	{
+		margin-right: 50px;
+	}
+
+}
+
+/* Medium devices (tablets, 768px and up)*/
+@media (min-width: 768px) {
+}
+
+/* Large devices (desktops, 992px and up)*/
+@media (min-width: 992px) {  }
+
+/* Extra large devices (large desktops, 1200px and up)*/
+@media (min-width: 1200px) {}

@@ -1,0 +1,19 @@
+.lastPost h2
+{
+	margin-top: 50px;
+	font-size: 4em;
+}
+
+a
+{
+	text-decoration: none;
+	color: black;
+}
+
+.boxPost
+{
+	margin-top: 50px;
+	width: 200px;
+	height: 175px;
+	background-color: #9fa8a3;
+}

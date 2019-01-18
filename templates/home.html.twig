@@ -1,0 +1,31 @@
+{% extends "base.html.twig" %}
+
+{% block stylesheets %}
+	{{ parent()}}
+{% endblock %}
+
+{% block title %}
+	Home Sweet Home
+{% endblock %}
+
+{% block titlePage%}
+		<h1>L'impréssionniste</h1>
+		<h2>Le dévellopeur du dimanche</h2>
+{% endblock %}
+
+{% block body %}
+	<div class="lastPost">
+		<h2 class="text-center">Les derniers post</h2>
+		<div class="container">
+			<div class="row justify-content-around">
+				{% for post in listLastPosts %}
+					<div class="col-md-3 col-sm-5 col-xs-10 boxPost overflow-hidden">
+						<p class="text-center">{{ post.date|date('Y-m-d') }}</p>
+						<h4 class="text-center"><a href="/post/{{post.id}}">{{ post.title}}</a></h4>
+						<p class="contenu text-center">{{ post.content}}</p>
+					</div>
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+{% endblock %}

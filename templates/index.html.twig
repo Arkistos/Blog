@@ -1,0 +1,19 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+	Les Articles
+{% endblock %}
+
+{% block body %}
+			<div class="row">
+				{% for post in listPosts %}
+					<div class="col-md-4 post">
+						<div class="boxPost">
+							<p class="text-center">{{ post.date|date('Y-m-d') }}</p>
+							<h4 class="text-center"><a href="/post/{{post.id}}">{{ post.title}}</a></h4>
+							<p class="contenu text-center">{{ post.content}}</p>
+						</div>
+					</div>
+				{% endfor %}
+			</div>
+{% endblock %}

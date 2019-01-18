@@ -1,0 +1,100 @@
+body
+{
+	font-family: 'Open Sans', sans-serif;
+	background-color: #e3e0cf;
+}
+
+h1, h2
+{
+	font-family: 'Amatic SC', cursive;
+}
+
+.hidden-menu ul li
+{
+	display: inline;
+	padding-right: 70px;
+}
+
+.hidden-menu a
+{
+	text-decoration: none;
+	color: black;
+}
+
+.hidden-menu
+{
+	background-color: #9fa8a3;
+}
+
+.logoHidden
+{
+	padding-top: 25px;
+}
+
+.bouton
+{	width: 30px;
+	height: 30px;
+	margin-left: -125px;
+	-webkit-transition: all 2s ease;  
+  	-moz-transition: all 2s ease;  
+  	-o-transition: all 2s ease;  
+  	-ms-transition: all 2s ease;  
+  	transition: all 2s ease;
+}
+
+.bouton-active
+{
+	-ms-transform: rotate(90deg);
+  	-webkit-transform: rotate(90deg); 
+  	transform: rotate(90deg);
+}
+
+@keyframes animOpen {
+	0%{
+		transform: rotate(0deg);
+	}
+
+	100%{
+		transform: rotate(90deg);
+	}
+}
+
+@keyframes animClose {
+	0%{
+		transform: rotate(0deg);
+	}
+
+	100%{
+		transform: rotate(-90deg);
+	}
+}
+
+
+
+
+.titlePage
+{
+	padding-top: 25px;
+}
+
+.titlePage h1
+{
+	font-size: 5em;
+}
+
+.logo img
+{
+	width: 150px;
+	height: 150px;
+}
+
+footer
+{
+	background-color: #c5d5cb;
+}
+
+footer img
+{
+	height: 50px;
+	width: 50px;
+}

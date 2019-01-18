@@ -1,0 +1,13 @@
+.lastPost
+{
+	padding-top: 100px;
+}
+
+.lastPost ul
+{
+	padding-top: 50px;
+	padding-bottom: 100px;
+	display: flex;
+	list-style: none;
+	justify-content: space-around;
+}

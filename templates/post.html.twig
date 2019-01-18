@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+	{{ parent()}}
+{% endblock %}
+
+{% block title%}
+	{% for p in post %}
+		{{ p.title }}
+	{% endfor %}
+{% endblock %}
+
+{% block titlePage%}
+	{% for p in post %}
+		<h1>{{ p.title }}</h1>
+		<h5 class="datePost">Ecrit le {{ p.date| date('Y-m-d') }}</h3>
+	{% endfor %}
+{% endblock %}
+
+{% block body %}
+	<div class="row">
+		{% for p in post %}
+			<div class="contentPost col-md-6">
+			<p>{{ p.content }}</p>
+		</div>
+		{% endfor %}
+	</div>
+{% endblock %}

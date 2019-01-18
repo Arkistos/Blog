@@ -1,0 +1,21 @@
+{% extends "base.html.twig" %}
+
+{% block stylesheets %}
+	{{ parent()}}
+	<link href="{{ asset('css/styleAdd.css') }}" rel="stylesheet"/>
+{% endblock %}
+
+{% block title%}
+Ajout d'un Post
+{% endblock %}
+
+
+{% block body%}
+
+	<div class="addpost text-center">
+		<h1>Ajoutez un Post</h1>
+		{{ form_start(form) }}
+		{{ form_widget(form) }}
+		{{ form_end(form) }}
+	</div>
+{% endblock %}
