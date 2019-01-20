@@ -39,11 +39,8 @@ class PostController extends AbstractController
 
   	$form = $this->createFormBuilder($post)
   		->add('Title', TextType::class, array(
-        'label' => 'Titre : '
       ))
   		->add('Content', TextareaType::class, array(
-        'label' => 'Article : ',
-        'label_attr' => array('class' => 'foo')
       ))
   		->add('save', SubmitType::class, array('label'=>'Poster'))
   		->getForm();
