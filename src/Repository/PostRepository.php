@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Post;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query\Expr;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
@@ -21,11 +22,14 @@ class PostRepository extends ServiceEntityRepository
 
   public function listPosts()
   {
-    $qb = $this->createQueryBuilder('p')
+    $qb = $this->createQueryBuilder('p');
+
+    $query = $qb
+      ->select($qb->expr()->substring('p.content', 1, 75), 'p.id', 'p.date', 'p.title')
       ->orderBy('p.date', 'DESC')
       ->getQuery();
 
-    return $qb->execute();
+    return $query->getResult();
   }
 
   public function post($id)
@@ -40,13 +44,16 @@ class PostRepository extends ServiceEntityRepository
 
   public function findLastThree()
   {
-    $qb = $this->createQueryBuilder('p')
+    $qb = $this->createQueryBuilder('p');
+
+    $query = $qb
+      ->select($qb->expr()->substring('p.content', 1, 75), 'p.id', 'p.date', 'p.title')
       ->orderBy('p.date', 'DESC')
       ->setMaxResults(3)
       ->getQuery();
-    ;
+    
 
-    return $qb->execute();
+    return $query->getResult();
   }
 
     // /**

@@ -4,6 +4,10 @@
 	Les Articles
 {% endblock %}
 
+{% block titlePage%}
+	<h1>Mes Articles</h1>
+{% endblock %}
+
 {% block body %}
 	<div class="container">
 		<div class="row justify-content-around">
@@ -11,7 +15,7 @@
 				<div class="col-md-3 col-sm-5 col-xs-10 boxPost overflow-hidden">
 					<p class="text-center">{{ post.date|date('Y-m-d') }}</p>
 					<h4 class="text-center"><a href="/post/{{post.id}}">{{ post.title}}</a></h4>
-					<p class="text-center">{{ post.content}}</p>
+					<p class="text-center">{{ post.1}} ...</p>
 				</div>
 			{% endfor %}
 		</div>
