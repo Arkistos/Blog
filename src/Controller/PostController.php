@@ -9,6 +9,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use App\Entity\Post;
+use App\Entity\User;
 
 class PostController extends AbstractController
 {
@@ -35,32 +36,41 @@ class PostController extends AbstractController
   */
   public function addAction(Request $request)
   {
-  	$post = new Post();
+  
+    if( in_array('ROLE_ADMIN', $this->getUser()->getRoles()) ) 
+    {
+      
+  	 $post = new Post();
 
-  	$form = $this->createFormBuilder($post)
-  		->add('Title', TextType::class, array(
-      ))
-  		->add('Content', TextareaType::class, array(
-      ))
-  		->add('save', SubmitType::class, array('label'=>'Poster'))
-  		->getForm();
+  	 $form = $this->createFormBuilder($post)
+  		  ->add('Title', TextType::class, array(
+        ))
+  		  ->add('Content', TextareaType::class, array(
+        ))
+  		  ->add('save', SubmitType::class, array('label'=>'Poster'))
+  		  ->getForm();
 
-  	$form->handleRequest($request);
+  	 $form->handleRequest($request);
 
-  	if ($form->isSubmitted() && $form->isValid()){
-  		$post = $form->getData();
-  		$post->setDate(new \DateTime());
+  	 if ($form->isSubmitted() && $form->isValid()){
+  		  $post = $form->getData();
+  		  $post->setDate(new \DateTime());
 
-  		$em = $this->getDoctrine()->getManager();
-  		$em->persist($post);
-  		$em->flush();
+  		  $em = $this->getDoctrine()->getManager();
+  		  $em->persist($post);
+  		  $em->flush();
 
-  		return $this->redirectToRoute('acceuil');
-  	}
+  		  return $this->redirectToRoute('acceuil');
+  	 }
 
-  	return $this->render('add.html.twig', array(
-  		'form' => $form->createView(),
-  	));
+  	 return $this->render('add.html.twig', array(
+  		  'form' => $form->createView(),
+  	 ));
+    }
+    else
+    {
+      $this->redirectToRoute('login');
+    }
   }
 
   /**
