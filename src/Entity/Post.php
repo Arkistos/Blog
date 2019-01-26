@@ -31,6 +31,16 @@ class Post
      */
     private $date;
 
+    /**
+     * @ORM\Column(type="blob", nullable=true)
+     */
+    private $Image;
+
+
+    public function __construct()
+    {
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -68,6 +78,30 @@ class Post
     public function setDate(\DateTimeInterface $date): self
     {
         $this->date = $date;
+
+        return $this;
+    }
+
+    public function getImagePost(): ?ImagePost
+    {
+        return $this->ImagePost;
+    }
+
+    public function setImagePost(?ImagePost $ImagePost): self
+    {
+        $this->ImagePost = $ImagePost;
+
+        return $this;
+    }
+
+    public function getImage()
+    {
+        return $this->Image;
+    }
+
+    public function setImage($Image): self
+    {
+        $this->Image = $Image;
 
         return $this;
     }

@@ -8,6 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use App\Entity\Post;
 use App\Entity\User;
 
@@ -43,10 +44,8 @@ class PostController extends AbstractController
   	 $post = new Post();
 
   	 $form = $this->createFormBuilder($post)
-  		  ->add('Title', TextType::class, array(
-        ))
-  		  ->add('Content', TextareaType::class, array(
-        ))
+  		  ->add('Title', TextType::class)
+  		  ->add('Content', TextareaType::class)
   		  ->add('save', SubmitType::class, array('label'=>'Poster'))
   		  ->getForm();
 

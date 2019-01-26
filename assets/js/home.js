@@ -31,3 +31,17 @@ var i = 0;
 		}
 	}
 }
+
+var $form = $('#getNewsletter');
+var $mail;
+var $comment;
+
+$form.on('submit', function(e){
+	e.preventDefault();
+	$mail = $('#inputEmail').val();
+	$mail = 'http://127.0.0.1:8000/setmail/'.concat($mail);
+	axios.get($mail).then(function(response){
+		$comment = response.data.message;
+		$('#comment').text($comment);
+	})
+});
