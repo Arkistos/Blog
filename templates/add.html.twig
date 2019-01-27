@@ -29,6 +29,12 @@ Ajout d'un Post
       	{{ form_widget(form.Content, {'attr': {'class': 'foo'}}) }}
       	{{ form_help(form.Content) }}
     	</div>
+      <div >
+        {{ form_label(form.Image) }}
+        {{ form_errors(form.Image) }}
+        {{ form_widget(form.Image) }}
+        {{ form_help(form.Image) }}
+      </div>
 
     	<div class="boutonPost">
     		{{ form_widget(form.save) }}

@@ -26,7 +26,6 @@ class PostController extends AbstractController
     if (!$listLastPosts) {
     	throw new Exception("Problème de chargement des données");
     }
-
     return $this->render('home.html.twig', array(
       'listLastPosts' => $listLastPosts
      ));
@@ -43,17 +42,26 @@ class PostController extends AbstractController
       
   	 $post = new Post();
 
-  	 $form = $this->createFormBuilder($post)
+  	 $form = $this->createFormBuilder()
   		  ->add('Title', TextType::class)
   		  ->add('Content', TextareaType::class)
+        ->add('Image', FileType::class)
   		  ->add('save', SubmitType::class, array('label'=>'Poster'))
   		  ->getForm();
 
   	 $form->handleRequest($request);
 
   	 if ($form->isSubmitted() && $form->isValid()){
-  		  $post = $form->getData();
+
+        /***Gestion des entrées***/
+  		  $data = $form->getData();
+        $post->setTitle($data['Title']);
+        $post->setContent($data['Content']);
   		  $post->setDate(new \DateTime());
+        $image = $data['Image'];
+        $post->setImage('images/'.$image->getClientOriginalName());
+        $image->move('../public/images', $post->getImage());
+        /*************/
 
   		  $em = $this->getDoctrine()->getManager();
   		  $em->persist($post);

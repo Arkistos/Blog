@@ -32,9 +32,9 @@ class Post
     private $date;
 
     /**
-     * @ORM\Column(type="blob", nullable=true)
+     * @ORM\Column(type="string", nullable=true)
      */
-    private $Image;
+    private $image;
 
 
     public function __construct()
@@ -82,26 +82,14 @@ class Post
         return $this;
     }
 
-    public function getImagePost(): ?ImagePost
-    {
-        return $this->ImagePost;
-    }
-
-    public function setImagePost(?ImagePost $ImagePost): self
-    {
-        $this->ImagePost = $ImagePost;
-
-        return $this;
-    }
-
     public function getImage()
     {
-        return $this->Image;
+        return $this->image;
     }
 
-    public function setImage($Image): self
+    public function setImage(string $image): self
     {
-        $this->Image = $Image;
+        $this->image = $image;
 
         return $this;
     }
