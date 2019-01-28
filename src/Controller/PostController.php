@@ -11,6 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use App\Entity\Post;
 use App\Entity\User;
+use App\Entity\Comment;
 
 class PostController extends AbstractController
 {
@@ -46,7 +47,7 @@ class PostController extends AbstractController
   		  ->add('Title', TextType::class)
   		  ->add('Content', TextareaType::class)
         ->add('Image', FileType::class)
-  		  ->add('save', SubmitType::class, array('label'=>'Poster'))
+  		  ->add('Save', SubmitType::class, array('label'=>'Poster'))
   		  ->getForm();
 
   	 $form->handleRequest($request);
@@ -83,19 +84,60 @@ class PostController extends AbstractController
   /**
   * @Route("/post/{id}", name = "article")
   */
-  public function viewAction($id)
+  public function viewAction($id, Request $request)
   {
-    $post = $this->getDoctrine()
-      ->getRepository(Post::class)
-      ->post($id);
+    /***Display Post***/
+    
+    $repo = $this->getDoctrine()->getRepository(Post::class);
+    $post = new Post();
+    $post = $repo->findOneBy(['id' => $id]);
+
+    $listComments = $post->getComments();
+
 
     if(!$post)
     {
       throw new Exception("Cet id n'existe pas");
     }
 
+    $comment = new Comment();
+    /***Display Form***/
+    $form = $this->createFormBuilder()
+      ->add('Auteur', TextType::class)
+      ->add('Commentaire', TextareaType::class)
+      ->add('Valider', SubmitType::class)
+      ->getForm();
+
+    $form->handleRequest($request);
+
+    if($form->isSubmitted() && $form->isValid())
+    {
+      /***Set Comment***/
+      $data = $form->getData();
+      $comment->setAuthor($data['Auteur']);
+      $comment->setCommentaire($data['Commentaire']);
+      $comment->setDate(new \DateTime());
+      $comment->setPost($post);
+
+      $em = $this->getDoctrine()->getManager();
+      $em->persist($comment);
+      $em->flush();
+
+      return $this->render('post.html.twig', array(
+      'title' => $post->getTitle(),
+      'content' => $post->getContent(),
+      'date' => $post->getDate(),
+      'listComments' => $listComments,
+      'com' => $form->createView()
+    ));
+    }  
+
     return $this->render('post.html.twig', array(
-      'post' => $post
+      'title' => $post->getTitle(),
+      'content' => $post->getContent(),
+      'date' => $post->getDate(),
+      'listComments' =>$listComments,
+      'com' => $form->createView()
     ));
   }
 

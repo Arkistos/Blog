@@ -5,24 +5,45 @@
 {% endblock %}
 
 {% block title%}
-	{% for p in post %}
-		{{ p.title }}
-	{% endfor %}
+		{{ title }}
+	
 {% endblock %}
 
 {% block titlePage%}
-	{% for p in post %}
-		<h1>{{ p.title }}</h1>
-		<h5 class="datePost">Ecrit le {{ p.date| date('Y-m-d') }}</h3>
-	{% endfor %}
+	
+		<h1>{{ title }}</h1>
+		<h5 class="datePost">Ecrit le {{ date| date('Y-m-d') }}</h3>
+
 {% endblock %}
 
 {% block body %}
 	<div class="row">
-		{% for p in post %}
-			<div class="contentPost col-md-6">
-			<p>{{ p.content }}</p>
+		<div class="contentPost col-md-6">
+			<p>{{ content }}</p>
 		</div>
-		{% endfor %}
 	</div>
+
+	{% for comment in listComments %}
+		<h4>{{ comment.author}}<h4>
+		<h5>{{ comment.date| date('Y-m-d') }}</h5>
+		<p>{{ comment.commentaire }}</p>
+	{% endfor %}
+
+	{{form_start(com)}}
+		<div >
+        {{ form_label(com.Auteur) }}
+        {{ form_errors(com.Auteur) }}
+        {{ form_widget(com.Auteur) }}
+        {{ form_help(com.Auteur) }}
+      </div>
+      <div >
+        {{ form_label(com.Commentaire) }}
+        {{ form_errors(com.Commentaire) }}
+        {{ form_widget(com.Commentaire) }}
+        {{ form_help(com.Commentaire) }}
+      </div>
+      {{ form_widget(com.Valider) }}
+
+      {{ form_end(com) }}
+
 {% endblock %}
