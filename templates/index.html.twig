@@ -12,7 +12,7 @@
 	<div class="container">
 		<div class="row justify-content-around">
 			{% for post in listPosts %}
-				<div class="col-md-3 col-sm-5 col-xs-10 boxPost overflow-hidden">
+				<div class="col-md-3 col-sm-5 col-xs-10 boxPost overflow-hidden" style="background-image:url('{{asset(post.image)}}')">
 					<p class="text-center">{{ post.date|date('Y-m-d') }}</p>
 					<h4 class="text-center"><a href="/post/{{post.id}}">{{ post.title}}</a></h4>
 					<p class="text-center">{{ post.1}} ...</p>

@@ -14,9 +14,11 @@
 		<h1>{{ title }}</h1>
 		<h5 class="datePost">Ecrit le {{ date| date('Y-m-d') }}</h3>
 
+
 {% endblock %}
 
 {% block body %}
+	<img src="{{ asset(image) }}">
 	<div class="row">
 		<div class="contentPost col-md-6">
 			<p>{{ content }}</p>

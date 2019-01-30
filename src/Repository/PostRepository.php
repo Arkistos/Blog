@@ -25,7 +25,7 @@ class PostRepository extends ServiceEntityRepository
     $qb = $this->createQueryBuilder('p');
 
     $query = $qb
-      ->select($qb->expr()->substring('p.content', 1, 75), 'p.id', 'p.date', 'p.title')
+      ->select($qb->expr()->substring('p.content' , 1, 75), 'p.id', 'p.date', 'p.title', 'p.image')
       ->orderBy('p.date', 'DESC')
       ->getQuery();
 
@@ -47,7 +47,7 @@ class PostRepository extends ServiceEntityRepository
     $qb = $this->createQueryBuilder('p');
 
     $query = $qb
-      ->select($qb->expr()->substring('p.content', 1, 75), 'p.id', 'p.date', 'p.title', 'p.image')
+      ->select($qb->expr()->substring('p.content', 1, 100), 'p.id', 'p.date', 'p.title', 'p.image')
       ->orderBy('p.date', 'DESC')
       ->setMaxResults(3)
       ->getQuery();

@@ -127,6 +127,7 @@ class PostController extends AbstractController
       'title' => $post->getTitle(),
       'content' => $post->getContent(),
       'date' => $post->getDate(),
+      'image' => $post->getImage(),
       'listComments' => $listComments,
       'com' => $form->createView()
     ));
@@ -136,6 +137,7 @@ class PostController extends AbstractController
       'title' => $post->getTitle(),
       'content' => $post->getContent(),
       'date' => $post->getDate(),
+      'image' => $post->getImage(),
       'listComments' =>$listComments,
       'com' => $form->createView()
     ));
