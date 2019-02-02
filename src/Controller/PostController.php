@@ -16,7 +16,7 @@ use App\Entity\Comment;
 class PostController extends AbstractController
 {
   /**
-  * @Route("/home", name="acceuil")
+  * @Route("/", name="acceuil")
   */
   public function homeAction()
   {

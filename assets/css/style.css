@@ -47,6 +47,7 @@ h1, h2
 .titlePage h1
 {
 	font-size: 3em;
+	margin-bottom: 10px;
 }
 
 .logo img
@@ -58,14 +59,21 @@ h1, h2
 footer
 {
 	margin-top: 50px;
+	padding-top: 20px;
+	padding-bottom: 50px;
 	background-color: #c5d5cb;
-	height: 300px;
+	/*height: 300px;*/
 }
 
 footer img
 {
 	height: 50px;
 	width: 50px;
+}
+
+.form-conf
+{
+	margin-top: 50px;
 }
 
 /* Small devices (landscape phones, 576px and up)*/

@@ -18,8 +18,9 @@
 {% endblock %}
 
 {% block body %}
-	<img src="{{ asset(image) }}">
+	
 	<div class="row">
+		<img src="{{ asset(image) }}" class="imagePost justify-content-center">
 		<div class="contentPost col-md-6">
 			<p>{{ content }}</p>
 		</div>

@@ -21,9 +21,8 @@
   		<div class="collapse" id="hidden">
   			<div class="hidden-menu">
   				<ul class="text-center">
-            <li><a href="/home">Home</a></li>
+            <li><a href="/">Home</a></li>
             <li><a href="/index">Posts</a></li>
-            <li><a href="#">Creations</a></li>
             <li><a href="https://github.com/Arkistos">GitHub</a></li>
           </ul>
   			</div>
@@ -48,27 +47,36 @@
 
 
     <footer>
+
+      <form id="getNewsletter" >
+        <div class="container">
+          <div class="form-row justify-content-around">
+            <label for="inputEmail" class="form-group">Get our Newsletter</label>
+          </div>
+          <div class="form-row justify-content-center">
+            <input type="email" name="email" id="inputEmail" required autofocus placeholder="email">
+            <button class="btn btn-lg btn-outline-secondary" type="submit" id="btnNews"> get newsletter</button>
+          </div>
+          <div class="row justify-content-around">
+            <p id="comment"></p>
+          </div>
+        </div>
+      </form>
+
+      <div class="container">
+      <div class="row justify-content-around">
+        <a href="#"><img src="{{asset('images/logo_mail.png')}}"></a>
+        <a href="https://twitter.com/ImpressionisteL"><img src="{{asset('images/logo_twitter.png')}}"></a>
+      </div>
+    </div>
+
       <p class="text-center">
         Copyright © <script type="text/javascript">
           var d = new Date();
           document.write(d.getFullYear());
           </script>  
           L'impressionniste - All Rights Reserved
-          <img src=" {{ asset('images/logo.png') }} ">
       </p>
-      <p>contact : </p>
-      <ul>
-        <li><a href="limpressionnistedev@gmail.com">mon mail</a></li>
-        <li><a href="https://twitter.com/ImpressionisteL">twitter</a></li>
-      </ul>
-      <form id="getNewsletter">
-        <p>
-          <label for="inputEmail">Email</label>
-          <input type="email" name="email" id="inputEmail" required autofocus>
-        </p>
-          <button class="btn btn-lg btn-primary" type="submit" id="btnNews"> get newsletter</button>
-      </form>
-      <p id="comment"></p>
     </footer>
 
 

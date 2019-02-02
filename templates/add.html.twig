@@ -16,27 +16,34 @@ Ajout d'un Post
 		<div class="container">
 			{{ form_start(form) }}
 
-			<div class="form-inline">
-				{{ form_label(form.Title, "Titre :  ") }}
-      	{{ form_errors(form.Title) }}
-      	{{ form_widget(form.Title) }}
-     	 	{{ form_help(form.Title) }}
-    	</div>
+			<div class="form-row justify-content-md-center">
+        <div class="col-md-3">
+				  {{ form_label(form.Title, "Titre :  ") }}
+      	 {{ form_errors(form.Title) }}
+      	 {{ form_widget(form.Title) }}
+     	 	  {{ form_help(form.Title) }}
+    	  </div>
+      </div>
 
-    	<div class="form-group">
-    		{{ form_label(form.Content, 'Texte :  ') }}
-      	{{ form_errors(form.Content) }}
-      	{{ form_widget(form.Content, {'attr': {'class': 'foo'}}) }}
-      	{{ form_help(form.Content) }}
+    	<div class="form-row justify-content-md-center">
+        <div class="col-md-8">
+    		  {{ form_label(form.Content, 'Texte :  ') }}
+      	  {{ form_errors(form.Content) }}
+        	{{ form_widget(form.Content, {'attr': {'class': 'foo'}}) }}
+      	  {{ form_help(form.Content) }}
+        </div>
     	</div>
-      <div >
+      
+      <div class="form-row justify-content-md-center">
+        <div class="col-md-2">
         {{ form_label(form.Image) }}
         {{ form_errors(form.Image) }}
         {{ form_widget(form.Image) }}
         {{ form_help(form.Image) }}
       </div>
+    </div>
 
-    	<div class="boutonPost">
+    	<div class="boutonPost form-row justify-content-md-center">
     		{{ form_widget(form.Save) }}
     	</div>
 

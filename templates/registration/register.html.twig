@@ -2,13 +2,25 @@
 
 {% block title %}Register{% endblock %}
 
+{% block titlePage%}
+	<h1> Nouvel utilisateur</h1>
+{% endblock %}
+
 {% block body %}
-    <h1>Register</h1>
 
+	<div class="container">
     {{ form_start(registrationForm) }}
+    <div class="row justify-content-center form-conf">
         {{ form_row(registrationForm.email) }}
-        {{ form_row(registrationForm.plainPassword) }}
+    </div>
 
+    <div class="row justify-content-center form-conf">
+        {{ form_row(registrationForm.Password) }}
+    </div>
+
+    <div class="row justify-content-center form-conf">
         <button class="btn">Register</button>
+    </div>
     {{ form_end(registrationForm) }}
+  </div>
 {% endblock %}
