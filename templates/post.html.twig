@@ -29,7 +29,7 @@
 	{% for comment in listComments %}
 		<h4>{{ comment.author}}<h4>
 		<h5>{{ comment.date| date('Y-m-d') }}</h5>
-		<p>{{ comment.commentaire }}</p>
+		<p>{{ comment.commentaire }} <a href="/delete/comment/{{comment.id}}"><img src="{{asset('images/icon_delete.png')}}"></a></p>
 	{% endfor %}
 
 	{{form_start(com)}}

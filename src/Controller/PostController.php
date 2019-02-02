@@ -31,7 +31,7 @@ class PostController extends AbstractController
       'listLastPosts' => $listLastPosts
      ));
   }
-
+  
   /**
   * @Route("/add", name="ajout")
   */
@@ -46,7 +46,7 @@ class PostController extends AbstractController
   	 $form = $this->createFormBuilder()
   		  ->add('Title', TextType::class)
   		  ->add('Content', TextareaType::class)
-        ->add('Image', FileType::class)
+        ->add('Image', FileType::class, ['required' => false])
   		  ->add('Save', SubmitType::class, array('label'=>'Poster'))
   		  ->getForm();
 
@@ -59,9 +59,13 @@ class PostController extends AbstractController
         $post->setTitle($data['Title']);
         $post->setContent($data['Content']);
   		  $post->setDate(new \DateTime());
+        $post->setAuthor('Pierre');
         $image = $data['Image'];
-        $post->setImage('images/'.$image->getClientOriginalName());
-        $image->move('../public/images', $post->getImage());
+        if(!is_null($image))
+        {
+          $post->setImage('images/'.$image->getClientOriginalName());
+          $image->move('../public/images', $post->getImage());
+        }
         /*************/
 
   		  $em = $this->getDoctrine()->getManager();
@@ -161,6 +165,4 @@ class PostController extends AbstractController
       'listPosts' => $listPosts
     ));
   }
-
-
 }
