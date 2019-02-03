@@ -9,9 +9,11 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use App\Entity\Post;
 use App\Entity\User;
 use App\Entity\Comment;
+use App\Entity\Category;
 
 class PostController extends AbstractController
 {
@@ -40,13 +42,22 @@ class PostController extends AbstractController
   
     if( in_array('ROLE_ADMIN', $this->getUser()->getRoles()) ) 
     {
-      
+
+     $listCat = $this->getDoctrine()->getRepository(Category::class)->findAll();
+
   	 $post = new Post();
 
   	 $form = $this->createFormBuilder()
   		  ->add('Title', TextType::class)
   		  ->add('Content', TextareaType::class)
         ->add('Image', FileType::class, ['required' => false])
+        ->add('Category', ChoiceType::class, ['multiple' => true, 'expanded'=> true , 
+          'choices' => $listCat,
+          'choice_label' => function($category, $key, $value) {
+        /** @var Category $category */
+        return strtoupper($category->getName());
+    },
+        ])
   		  ->add('Save', SubmitType::class, array('label'=>'Poster'))
   		  ->getForm();
 
@@ -60,6 +71,9 @@ class PostController extends AbstractController
         $post->setContent($data['Content']);
   		  $post->setDate(new \DateTime());
         $post->setAuthor('Pierre');
+        foreach ($data['Category'] as $cat) {
+          $cat->addPost($post);
+        }
         $image = $data['Image'];
         if(!is_null($image))
         {
@@ -70,6 +84,7 @@ class PostController extends AbstractController
 
   		  $em = $this->getDoctrine()->getManager();
   		  $em->persist($post);
+        $em->persist($cat);
   		  $em->flush();
 
   		  return $this->redirectToRoute('acceuil');
@@ -95,6 +110,7 @@ class PostController extends AbstractController
     $repo = $this->getDoctrine()->getRepository(Post::class);
     $post = new Post();
     $post = $repo->findOneBy(['id' => $id]);
+    $catgories = $post->getCategory();
 
     $listComments = $post->getComments();
 
@@ -133,7 +149,8 @@ class PostController extends AbstractController
       'date' => $post->getDate(),
       'image' => $post->getImage(),
       'listComments' => $listComments,
-      'com' => $form->createView()
+      'com' => $form->createView(),
+      'listCat' => $catgories
     ));
     }  
 
@@ -143,7 +160,8 @@ class PostController extends AbstractController
       'date' => $post->getDate(),
       'image' => $post->getImage(),
       'listComments' =>$listComments,
-      'com' => $form->createView()
+      'com' => $form->createView(),
+      'listCat' => $catgories
     ));
   }
 

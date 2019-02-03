@@ -33,6 +33,17 @@ Ajout d'un Post
       	  {{ form_help(form.Content) }}
         </div>
     	</div>
+
+      <div class="form-row justify-content-md-center cat">
+        <div class="col-md-8">
+          {{ form_label(form.Category) }}
+          {{ form_errors(form.Category) }}
+          {{ form_widget(form.Category) }}
+          {{ form_help(form.Category) }}
+        </div>
+      </div>
+
+      <p  id="add_cat">add category</p>
       
       <div class="form-row justify-content-md-center">
         <div class="col-md-2">
