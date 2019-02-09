@@ -1,3 +1,7 @@
+.file_upload > input
+{
+    display: none;
+}
 body
 {
 	font-family: 'Open Sans', sans-serif;

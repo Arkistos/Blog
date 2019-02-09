@@ -32,6 +32,8 @@ var i = 0;
 	}
 }
 
+
+/***Newsletter***/
 var $form = $('#getNewsletter');
 var $mail;
 var $comment;
@@ -47,7 +49,69 @@ $form.on('submit', function(e){
 });
 
 
-//alert($choices.text());
+/***changement de Nom utilisateur***/
+$('#editName').click(function() {
+	var $name = prompt('Entrez votre nouveau nom d\'utilisateur');
+	if($name != null & $name !=0)
+	{
+		var $route = 'http://127.0.0.1:8000/user/changeName/' + $name;
+		axios.get($route).then(function(response){
+			if(response.data.code === 200){
+				$('#userName').text($name);
+			}
+		});
+	}
+})
+
+/***changement de Mail***/
+$('#editMail').click(function() {
+	var $mail = prompt('Entrez votre nouvelle adresse email');
+	if($mail != null & $mail !=0)
+	{
+		var $route = 'http://127.0.0.1:8000/user/changeMail/' + $mail;
+		axios.get($route).then(function(response){
+			if(response.data.code === 200){
+				$('#userMail').text($mail);
+			}
+		});
+	}
+})
+
+/***changement de Mot de Passe***/
+$('#editPassword').click(function() {
+	var $mdp = prompt('Entrez votre nouveau mot de passe');
+	if($mdp != null & $mdp !=0)
+	{
+		var $route = 'http://127.0.0.1:8000/user/changePassword/' + $mdp;
+		axios.get($route).then(function(response){
+			alert('Votre mot de passe à été mis à jour');
+		});
+	}
+})
+
+/***changement de profile pic***/
+var fileInput = document.getElementById('fileInput');
+
+fileInput.onchange = function() {
+	var formData = new FormData();
+
+	formData.append('photo', fileInput.files[0], fileInput.files[0].name);
+
+	var xhr = new XMLHttpRequest();
+	xhr.open('POST', 'http://127.0.0.1:8000/user/setPhoto', true);
+	xhr.onload = function(){
+		if (xhr.status === 200) {
+			var img = document.getElementById('profilePic');
+			img.src = '/images/'+ fileInput.files[0].name;
+		}
+	};
+	xhr.send(formData);
+};
+
+
+/***catégorie lors de l'écriture d'un post***/
+if(document.getElementById("add_cat"))
+{
 document.getElementById("add_cat").onclick = function add()
 {
 	var $category = prompt("Enter the new category : ");
@@ -59,7 +123,15 @@ document.getElementById("add_cat").onclick = function add()
 			
 			$nbr = parseInt(response.data.message);
 			$('#form_Category').append('<div id="form_Category"><div class="form-check"><input type="checkbox" id="form_Category_'+$nbr+'" name="form[Category][]" class="form-check-input" value="'+$nbr+'" /><label class="form-check-label" for="form_Category_0">' + $category + '</label></div><div class="form-check">');
-		})
+		});
 	}
-}
-	
+};
+}	
+
+
+
+
+
+
+
+

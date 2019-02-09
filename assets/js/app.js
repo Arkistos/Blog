@@ -11,6 +11,7 @@ require('../css/style.css');
 require('../css/styleHome.css');
 require('../css/styleAdd.css');
 require('../css/stylePost.css');
+require('jquery');
 
 
 // Need jQuery? Install it with "yarn add jquery", then uncomment to require it.

@@ -32,6 +32,7 @@ class RegistrationFormType extends AbstractType
                     ]),
                 ],
             ])
+            ->add('name')
         ;
     }
 

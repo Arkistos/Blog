@@ -35,6 +35,16 @@ class User implements UserInterface
      */
     private $password;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $profile_pic;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $name;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -111,5 +121,29 @@ class User implements UserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    public function getProfilePic(): ?string
+    {
+        return $this->profile_pic;
+    }
+
+    public function setProfilePic(?string $profile_pic): self
+    {
+        $this->profile_pic = $profile_pic;
+
+        return $this;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): self
+    {
+        $this->name = $name;
+
+        return $this;
     }
 }
