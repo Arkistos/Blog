@@ -11,6 +11,7 @@ require('../css/style.css');
 require('../css/styleHome.css');
 require('../css/styleAdd.css');
 require('../css/stylePost.css');
+require('../css/styleAdmin.css');
 require('jquery');
 
 

@@ -4,6 +4,18 @@
 	padding-bottom: 50px;
 }
 
+.cat{
+	padding-top: 30px;
+}
+
+.form-check-label{
+	width: 10px;
+}
+
+.catInbox{
+	padding-left: 50px;
+}
+
 .boutonPost
 {
 	margin-top: 20px;

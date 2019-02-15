@@ -10,21 +10,24 @@
 
 	<div class="container">
     {{ form_start(registrationForm) }}
-    <div class="row justify-content-center form-conf">
+      <div class="row justify-content-around form-conf">
         {{ form_row(registrationForm.email) }}
-    </div>
+      
 
-    <div class="row justify-content-center form-conf">
+
         {{ form_row(registrationForm.Password) }}
-    </div>
+      
 
-    <div class="row justify-content-center form-conf">
+
         {{ form_row(registrationForm.name) }}
-    </div>
+      </div>
 
-    <div class="row justify-content-center form-conf">
-        <button class="btn">Register</button>
-    </div>
+      <div class="row justify-content-center form-conf">
+        <button class="btn btn-light">Register</button>
+      </div>
+
     {{ form_end(registrationForm) }}
+
   </div>
+
 {% endblock %}

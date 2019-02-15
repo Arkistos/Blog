@@ -4,6 +4,7 @@ namespace App\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -35,73 +36,66 @@ class PostController extends AbstractController
   }
   
   /**
-  * @Route("/add", name="ajout")
+  * @IsGranted("ROLE_ADMIN")
+  * @Route("/post/add", name="ajout")
   */
   public function addAction(Request $request)
   {
-  
-    if( in_array('ROLE_ADMIN', $this->getUser()->getRoles()) ) 
-    {
+    $listCat = $this->getDoctrine()->getRepository(Category::class)->findAll();
 
-     $listCat = $this->getDoctrine()->getRepository(Category::class)->findAll();
+  	$post = new Post();
 
-  	 $post = new Post();
-
-  	 $form = $this->createFormBuilder()
-  		  ->add('Title', TextType::class)
-  		  ->add('Content', TextareaType::class)
-        ->add('Image', FileType::class, ['required' => false])
-        ->add('Category', ChoiceType::class, ['multiple' => true, 'expanded'=> true , 
-          'choices' => $listCat,
-          'choice_label' => function($category, $key, $value) {
+  	$form = $this->createFormBuilder()
+  		->add('Title', TextType::class)
+  		->add('Content', TextareaType::class)
+      ->add('Image', FileType::class, ['required' => false])
+      ->add('Category', ChoiceType::class, ['multiple' => true, 'expanded'=> true , 
+        'choices' => $listCat,
+        'choice_label' => function($category, $key, $value) {
         /** @var Category $category */
         return strtoupper($category->getName());
-    },
-        ])
-  		  ->add('Save', SubmitType::class, array('label'=>'Poster'))
-  		  ->getForm();
+        },
+      ])
+  		->add('Save', SubmitType::class, array('label'=>'Poster'))
+  		->getForm();
 
-  	 $form->handleRequest($request);
+  	$form->handleRequest($request);
 
-  	 if ($form->isSubmitted() && $form->isValid()){
+  	if ($form->isSubmitted() && $form->isValid()){
 
-        /***Gestion des entrées***/
-  		  $data = $form->getData();
-        $post->setTitle($data['Title']);
-        $post->setContent($data['Content']);
-  		  $post->setDate(new \DateTime());
-        $post->setAuthor('Pierre');
-        foreach ($data['Category'] as $cat) {
-          $cat->addPost($post);
-        }
-        $image = $data['Image'];
-        if(!is_null($image))
-        {
-          $post->setImage('images/'.$image->getClientOriginalName());
-          $image->move('../public/images', $post->getImage());
-        }
-        /*************/
+      /***Gestion des entrées***/
+  		$data = $form->getData();
+      $post->setTitle($data['Title']);
+      $post->setContent($data['Content']);
+  		$post->setDate(new \DateTime());
+      $post->setAuthor('Pierre');
+      foreach ($data['Category'] as $cat) {
+        $cat->addPost($post);
+      }
+      $image = $data['Image'];
+      if(!is_null($image))
+      {
+        $post->setImage('images/'.$image->getClientOriginalName());
+        $image->move('../public/images', $post->getImage());
+      }
+      /*************/
 
-  		  $em = $this->getDoctrine()->getManager();
-  		  $em->persist($post);
-        $em->persist($cat);
-  		  $em->flush();
+  		$em = $this->getDoctrine()->getManager();
+  		$em->persist($post);
+      $em->persist($cat);
+  		$em->flush();
 
-  		  return $this->redirectToRoute('acceuil');
+  		return $this->redirectToRoute('acceuil');
   	 }
 
-  	 return $this->render('add.html.twig', array(
-  		  'form' => $form->createView(),
-  	 ));
-    }
-    else
-    {
-      $this->redirectToRoute('login');
-    }
+  	return $this->render('post/add.html.twig', array(
+  		'form' => $form->createView(),
+  	));
+    
   }
 
   /**
-  * @Route("/post/{id}", name = "article")
+  * @Route("/post/print/{id}", name = "article")
   */
   public function viewAction($id, Request $request)
   {
@@ -143,7 +137,9 @@ class PostController extends AbstractController
       $em->persist($comment);
       $em->flush();
 
-      return $this->render('post.html.twig', array(
+      return $this->render('post/post.html.twig', array(
+
+      'author' => $post->getAuthor(),
       'title' => $post->getTitle(),
       'content' => $post->getContent(),
       'date' => $post->getDate(),
@@ -154,7 +150,8 @@ class PostController extends AbstractController
     ));
     }  
 
-    return $this->render('post.html.twig', array(
+    return $this->render('post/post.html.twig', array(
+      'author' => $post->getAuthor(),
       'title' => $post->getTitle(),
       'content' => $post->getContent(),
       'date' => $post->getDate(),
@@ -166,7 +163,7 @@ class PostController extends AbstractController
   }
 
   /**
-  * @Route("/index", name="posts")
+  * @Route("post/index", name="posts")
   */
   public function indexAction()
   {
@@ -179,7 +176,7 @@ class PostController extends AbstractController
       throw new Exception("erreur lors de la collecte des articles");
     }
 
-    return $this->render('index.html.twig', array(
+    return $this->render('post/index.html.twig', array(
       'listPosts' => $listPosts
     ));
   }

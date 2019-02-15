@@ -15,16 +15,18 @@
 
 {% block body %}
 	<div class="lastPost">
-		<h2 class="text-center">Les derniers post</h2>
 		<div class="container">
 			<div class="row justify-content-around">
 				{% for post in listLastPosts %}
-					<div class="col-md-3 col-sm-5 col-xs-10 boxPost overflow-hidden" style="background-image:url('{{asset(post.image)}}')">
+					<a href="/post/print/{{post.id}}"class="col-md-3 col-sm-6 col-12 boxPost overflow-hidden" style="background-image:url('{{asset(post.image)}}')">
 						<p class="text-center">{{ post.date|date('Y-m-d') }}</p>
-						<h4 class="text-center"><a href="/post/{{post.id}}">{{ post.title}}</a></h4>
+						<h4 class="text-center">{{ post.title}}</h4>
 						<p class="text-center">{{ post.1 }} ...</p>
-					</div>
+					</a>
 				{% endfor %}
+			</div>
+			<div class="row justify-content-end">
+				<a href="/post/index"><h2>Plus de post</h2></a>
 			</div>
 		</div>
 	</div>

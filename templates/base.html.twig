@@ -17,12 +17,13 @@
   </head>
 
   <body>
+  <div class="page">
   	<header>
   		<div class="collapse" id="hidden">
   			<div class="hidden-menu">
   				<ul class="text-center">
             <li><a href="/">Home</a></li>
-            <li><a href="/index">Posts</a></li>
+            <li><a href="/post/category">Posts</a></li>
             <li><a href="https://github.com/Arkistos">GitHub</a></li>
           </ul>
   			</div>
@@ -34,8 +35,10 @@
   				    <a data-toggle="collapse" href="#hidden"><img class="gly-spin bouton mx-auto d-block" src=" {{ asset('images/drop-menu.png') }}" id="image"></a>
   			  </div>
           <div class="titlePage col-md-10 col-xs-12 col-sm-12 text-center" id="titi">
+
             {% block titlePage %}
             {% endblock %}
+            
           </div>
 
         </section>
@@ -45,7 +48,7 @@
 
     {% block body %}{% endblock %}
 
-
+    </div>
     <footer>
 
       <form id="getNewsletter" >
@@ -88,6 +91,7 @@
       {{ encore_entry_script_tags('home') }}
 
     {% endblock %}
+
   </body>
 
 </html>
