@@ -31,10 +31,11 @@
 	margin-top: -5px;
 	padding-bottom: 50px;
 }
-.formImg
+.custom-file
 {
-
+	display: none;
 }
+
 
 
 /* Small devices (landscape phones, 576px and up)*/

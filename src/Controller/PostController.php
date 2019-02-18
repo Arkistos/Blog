@@ -19,7 +19,7 @@ use App\Entity\Category;
 class PostController extends AbstractController
 {
   /**
-  * @Route("/", name="acceuil")
+  * @Route("/", name="accueil")
   */
   public function homeAction()
   {
@@ -41,6 +41,7 @@ class PostController extends AbstractController
   */
   public function addAction(Request $request)
   {
+    $em = $this->getDoctrine()->getManager();
     $listCat = $this->getDoctrine()->getRepository(Category::class)->findAll();
 
   	$post = new Post();
@@ -49,7 +50,7 @@ class PostController extends AbstractController
   		->add('Title', TextType::class)
   		->add('Content', TextareaType::class)
       ->add('Image', FileType::class, ['required' => false])
-      ->add('Category', ChoiceType::class, ['multiple' => true, 'expanded'=> true , 
+      ->add('Category', ChoiceType::class, ['required' =>false, 'multiple' => true, 'expanded'=> true , 
         'choices' => $listCat,
         'choice_label' => function($category, $key, $value) {
         /** @var Category $category */
@@ -68,9 +69,11 @@ class PostController extends AbstractController
       $post->setTitle($data['Title']);
       $post->setContent($data['Content']);
   		$post->setDate(new \DateTime());
-      $post->setAuthor('Pierre');
+      $user = $this->getUser();
+      $post->setAuthor($user->getName());
       foreach ($data['Category'] as $cat) {
         $cat->addPost($post);
+        $em->persist($cat);
       }
       $image = $data['Image'];
       if(!is_null($image))
@@ -80,9 +83,9 @@ class PostController extends AbstractController
       }
       /*************/
 
-  		$em = $this->getDoctrine()->getManager();
+
   		$em->persist($post);
-      $em->persist($cat);
+
   		$em->flush();
 
   		return $this->redirectToRoute('acceuil');
