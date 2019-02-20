@@ -3,6 +3,25 @@
 var buttonState = true;
 var angle = 0;
 
+
+
+
+/***Modifie le post pour afficher la bonne version***/
+var post = document.getElementById('content');
+post.innerHTML = post.innerHTML.replace(/%return%/g, "<br><br>");
+post.innerHTML = post.innerHTML.replace(/%start_link%/g, "<div id='link'>");
+post.innerHTML = post.innerHTML.replace(/%end_link%/g, "</div> <div id='endlink'>");
+post.innerHTML = post.innerHTML.replace(/%stop_link%/g, "</div>");
+var link = document.getElementById('link');
+var endlink = document.getElementById('endlink');
+var linkText = link.innerHTML;
+var endlinkText = endlink.innerHTML;
+$('#link').replaceWith("<a href=\""+linkText+"\">"+endlinkText+"</a>");
+$('#endlink').replaceWith("");
+
+
+
+
 document.getElementById("image").onclick = function rotateButton(){
 	var button = document.getElementById("image");
 	var i = 0;
@@ -146,3 +165,19 @@ fileInput.onchange = function() {
 	};
 	xhr.send(formData);
 };
+
+/***Gestion d'un post***/
+function setPost(text){
+	var pos = text.search('[/return/]');
+	var newPost = text.subtring(0, pos);
+	return newPost;
+}
+
+
+
+
+
+
+
+
+

@@ -88,7 +88,7 @@ class PostController extends AbstractController
 
   		$em->flush();
 
-  		return $this->redirectToRoute('acceuil');
+  		return $this->redirectToRoute('accueil');
   	 }
 
   	return $this->render('post/add.html.twig', array(
@@ -107,6 +107,8 @@ class PostController extends AbstractController
     $repo = $this->getDoctrine()->getRepository(Post::class);
     $post = new Post();
     $post = $repo->findOneBy(['id' => $id]);
+    $post->setViews($post->getViews()+1);
+    $this->getDoctrine()->getManager()->flush($post);
     $catgories = $post->getCategory();
 
     $listComments = $post->getComments();
@@ -147,6 +149,7 @@ class PostController extends AbstractController
       'content' => $post->getContent(),
       'date' => $post->getDate(),
       'image' => $post->getImage(),
+      'views' => $post->getViews(),
       'listComments' => $listComments,
       'com' => $form->createView(),
       'listCat' => $catgories
@@ -159,6 +162,7 @@ class PostController extends AbstractController
       'content' => $post->getContent(),
       'date' => $post->getDate(),
       'image' => $post->getImage(),
+      'views' => $post->getViews(),
       'listComments' =>$listComments,
       'com' => $form->createView(),
       'listCat' => $catgories
