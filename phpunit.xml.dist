@@ -9,8 +9,24 @@
 >
     <php>
         <ini name="error_reporting" value="-1" />
-        <env name="APP_ENV" value="test" />
-        <env name="SHELL_VERBOSITY" value="-1" />
+        <env name="KERNEL_CLASS" value="App\Kernel"/>
+        <env name="SYMFONY_PHPUNIT_VERSION" value="7.1"/>
+        <env name="SYMFONY_DEPRECATIONS_HELPER" value=""/>
+
+
+        <!-- ###+ doctrine/doctrine-bundle ### -->
+        <env name="DATABASE_URL" value="sqlite:///data/database_test.sqlite"/>
+        <!-- ###- doctrine/doctrine-bundle ### -->
+
+        <!-- ###+ symfony/swiftmailer-bundle ### -->
+        <env name="MAILER_URL" value="null://localhost"/>
+        <!-- ###- symfony/swiftmailer-bundle ### -->
+
+        <!-- ###+ symfony/framework-bundle ### -->
+        <env name="APP_ENV" value="test"/>
+        <env name="APP_DEBUG" value="1"/>
+        <env name="APP_SECRET" value="5a79a1c866efef9ca1800f971d689f3e"/>
+        <!-- ###- symfony/framework-bundle ### -->
     </php>
 
     <testsuites>
